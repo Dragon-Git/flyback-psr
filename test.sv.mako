@@ -1,7 +1,7 @@
-<%block name="main">
+<%block name="main">\
 <%
 self.modname = datamodel.modname
-%>
+%>\
 `ifndef ${self.modname.upper()}_UVM_TEST__SV
 `define ${self.modname.upper()}_UVM_TEST__SV
 
@@ -20,7 +20,7 @@ class ${self.modname}_uvm_test extends uvm_test;
    extern virtual function void connect_phase(uvm_phase phase);
    extern virtual function void report_phase(uvm_phase phase);
    `uvm_component_utils(${self.modname}_uvm_test)
-endclass : ${self.modname}_uvm_test
+endclass:${self.modname}_uvm_test
 
 
 function void ${self.modname}_uvm_test::build_phase(uvm_phase phase);
@@ -34,7 +34,7 @@ function void ${self.modname}_uvm_test::build_phase(uvm_phase phase);
    rm.reset();
    reg_sqr_adapter = new("reg_sqr_adapter");
    env.p_rm = this.rm;
-endfunction
+endfunction:build_phase
 
 function void ${self.modname}_uvm_test::connect_phase(uvm_phase phase);
    super.connect_phase(phase);
@@ -43,7 +43,7 @@ function void ${self.modname}_uvm_test::connect_phase(uvm_phase phase);
    v_sqr.p_rm = this.rm;
    rm.default_map.set_sequencer(env.bus_agt.sqr, reg_sqr_adapter);
    rm.default_map.set_auto_predict(1);
-endfunction
+endfunction:connect_phase
 
 function void ${self.modname}_uvm_test::report_phase(uvm_phase phase);
    uvm_report_server server;
@@ -59,7 +59,7 @@ function void ${self.modname}_uvm_test::report_phase(uvm_phase phase);
    else begin
       $$display("TEST CASE PASSED");
    end
-endfunction
+endfunction:report_phase
 
-`endif
+`endif // ${self.modname.upper()}_UVM_TEST__SV
 </%block>
